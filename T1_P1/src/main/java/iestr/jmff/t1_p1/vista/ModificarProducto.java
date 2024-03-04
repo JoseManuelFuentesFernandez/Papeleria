@@ -6,6 +6,8 @@ package iestr.jmff.t1_p1.vista;
 
 import iestr.jmff.t1_p1.controlador.TablapapeleriaJpaController;
 import iestr.jmff.t1_p1.modelo.Tablapapeleria;
+import static iestr.jmff.t1_p1.vista.Menu.hb;
+import static iestr.jmff.t1_p1.vista.Menu.helpset;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +35,10 @@ public class ModificarProducto extends javax.swing.JFrame {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         producto = new TablapapeleriaJpaController(emf);
         productos = producto.findTablapapeleriaEntities();
+        
+        //JavaHelp
+        hb.enableHelpKey(this.getContentPane(), "ModificarProducto", helpset);
+        initComponents();
         
         initComponents();
     }

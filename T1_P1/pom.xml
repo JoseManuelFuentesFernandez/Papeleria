@@ -63,6 +63,12 @@
             <artifactId>jasperreports</artifactId>
             <version>6.20.0</version>
         </dependency>
+        <dependency>
+            <groupId>javax.help</groupId>
+            <artifactId>javahelp</artifactId>
+            <version>2.0.05</version>
+        </dependency>
+
     </dependencies>
     <name>PapeleriaProject</name>
 </project>

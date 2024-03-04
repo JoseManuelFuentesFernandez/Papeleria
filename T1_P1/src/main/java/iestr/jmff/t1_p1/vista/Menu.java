@@ -7,7 +7,15 @@ package iestr.jmff.t1_p1.vista;
 import iestr.jmff.t1_p1.controlador.TablapapeleriaJpaController;
 import iestr.jmff.t1_p1.modelo.Tablapapeleria;
 import java.awt.Color;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JFrame;
@@ -25,6 +33,12 @@ import javax.swing.JOptionPane;
 public class Menu extends javax.swing.JFrame {
     private static List<Tablapapeleria> productos;
     private static TablapapeleriaJpaController producto;
+    
+    // JavaHelp
+    public static File fichero;
+    public static URL hsURL;
+    public static HelpSet helpset;
+    public static HelpBroker hb;
     
     /**
      * <p>Constructor de la clase Menu: configura
@@ -47,6 +61,22 @@ public class Menu extends javax.swing.JFrame {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         producto = new TablapapeleriaJpaController(emf);
         productos = producto.findTablapapeleriaEntities();
+        
+        //JavaHelp
+        fichero = new File("src/main/resources/help/help_set.hs");
+        try {
+            hsURL = fichero.toURI().toURL();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+        } catch (HelpSetException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        hb = helpset.createHelpBroker();
+
+        hb.enableHelpKey(this.getContentPane(), "Menu", helpset);
         
         initComponents();
     }
